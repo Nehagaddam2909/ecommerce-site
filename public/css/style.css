@@ -281,7 +281,7 @@ body {
 }
 @media (max-width: 75rem) {
   .card-images-cell:first-child {
-    padding-left: 2rem;
+    padding-left: 2.3rem;
   }
 }
 .card-images-cell-img {
