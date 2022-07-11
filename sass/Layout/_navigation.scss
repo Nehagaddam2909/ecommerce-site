@@ -115,10 +115,13 @@
 .cat-nav {
   background-color: #fff;
   display: flex;
-  //justify-content: center;
+  justify-content: center;
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
+  @include respond("phone") {
+    justify-content: flex-start;
+  }
   &-item {
     display: inline-block;
     max-height: 10rem;

@@ -5,10 +5,18 @@
     width: 100%;
     position: relative;
     //overflow: hidden;
+    @include respond("phone") {
+      height: 15rem;
+      object-fit: cover;
+    }
   }
   &-img {
     width: 100%;
     animation: zoom-out 12s linear infinite;
+
+    @include respond("phone") {
+      //height: 35rem;
+    }
   }
 }
 .slide1 {

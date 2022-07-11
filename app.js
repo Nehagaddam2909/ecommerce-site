@@ -27,4 +27,5 @@ app.use("/", (req, res, next) => {
   res.status(404).render("pgn", { docTitle: "page not found", path: "" });
 });
 
-app.listen(3000);
+const port = process.env.PORT || 3000;
+app.listen(port);

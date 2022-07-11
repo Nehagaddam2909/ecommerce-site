@@ -171,9 +171,15 @@ body {
 .cat-nav {
   background-color: #fff;
   display: flex;
+  justify-content: center;
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
+}
+@media (max-width: 37.5rem) {
+  .cat-nav {
+    justify-content: flex-start;
+  }
 }
 .cat-nav-item {
   display: inline-block;
@@ -192,11 +198,16 @@ body {
   width: 100%;
   position: relative;
 }
+@media (max-width: 37.5rem) {
+  .slideshow-banner {
+    height: 15rem;
+    object-fit: cover;
+  }
+}
 .slideshow-img {
   width: 100%;
   animation: zoom-out 12s linear infinite;
 }
-
 .slide1 {
   animation: fade1 12s linear infinite;
 }
