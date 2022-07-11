@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon app.js",
     "compile:sass": "node-sass sass/main.scss public/css/style.css -w",
-    "dev": "npm-run-all --parallel start compile:sass"
+    "dev": "npm-run-all --parallel start compile:sass",
+    "heroku-postbuild": "npm run dev"
   },
   "author": "",
   "license": "ISC",
