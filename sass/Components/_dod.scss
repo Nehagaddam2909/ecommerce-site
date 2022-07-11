@@ -6,17 +6,17 @@
   &-menu {
     :first-child {
       //padding-left: .3rem;
-      margin-left: 0.8rem;
+      margin-left: 1.6rem;
     }
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
     :not(:last-child) {
-      padding-right: 0.3rem;
+      margin-right: 1.6rem;
     }
   }
   &-item {
-    width: 16.5rem;
+    width: 17rem;
     //height: 25rem;
   }
 }
