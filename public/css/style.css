@@ -250,6 +250,14 @@ body {
   .card {
     margin: auto;
     margin: 3rem;
+    width: 45rem;
+  }
+}
+@media (max-width: 56.25rem) {
+  .card {
+    margin: auto;
+    margin: 3rem;
+    width: 39rem;
   }
 }
 @media (max-width: 37.5rem) {
@@ -377,6 +385,7 @@ body {
   background-color: #fff;
   justify-content: center;
   align-items: center;
+  margin-bottom: 5rem;
 }
 .deals-menu {
   overflow-x: scroll;
