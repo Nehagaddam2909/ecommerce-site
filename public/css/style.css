@@ -224,6 +224,11 @@ body {
     align-items: center;
   }
 }
+@media (max-width: 75rem) {
+  .card-nav {
+    display: grid;
+  }
+}
 
 .card {
   box-shadow: 0 0.3rem 0.6rem 0.3rem rgba(0, 0, 0, 0.2);

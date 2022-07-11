@@ -8,6 +8,9 @@
     align-items: center;
     //width: 100%;
   }
+  @include respond("tab-land") {
+    //display: grid;
+  }
 }
 .card {
   box-shadow: 0 0.3rem 0.6rem 0.3rem rgba(0, 0, 0, 0.2);
@@ -16,7 +19,7 @@
   width: 35rem;
   height: auto;
   background: #ffffff;
-  @include respond(phone) {
+  @include respond("phone") {
     margin: auto;
     margin-top: 3rem;
   }
