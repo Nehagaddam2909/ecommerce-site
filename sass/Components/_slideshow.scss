@@ -6,7 +6,7 @@
     position: relative;
     //overflow: hidden;
     @include respond("phone") {
-      height: 15rem;
+      height: 18rem;
       object-fit: cover;
     }
   }

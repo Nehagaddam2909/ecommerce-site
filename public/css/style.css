@@ -200,7 +200,7 @@ body {
 }
 @media (max-width: 37.5rem) {
   .slideshow-banner {
-    height: 15rem;
+    height: 18rem;
     object-fit: cover;
   }
 }
@@ -217,16 +217,17 @@ body {
   justify-content: center;
   width: 100%;
 }
+@media (max-width: 75rem) {
+  .card-nav {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+}
 @media (max-width: 37.5rem) {
   .card-nav {
     display: inline-block;
     justify-content: center;
     align-items: center;
-  }
-}
-@media (max-width: 75rem) {
-  .card-nav {
-    display: grid;
   }
 }
 
@@ -237,6 +238,12 @@ body {
   width: 35rem;
   height: auto;
   background: #ffffff;
+}
+@media (max-width: 75rem) {
+  .card {
+    margin: auto;
+    margin: 3rem;
+  }
 }
 @media (max-width: 37.5rem) {
   .card {

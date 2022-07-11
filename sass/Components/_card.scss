@@ -2,14 +2,16 @@
   display: flex;
   justify-content: center;
   width: 100%;
+
+  @include respond("tab-land") {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
   @include respond("phone") {
     display: inline-block;
     justify-content: center;
     align-items: center;
     //width: 100%;
-  }
-  @include respond("tab-land") {
-    //display: grid;
   }
 }
 .card {
@@ -19,6 +21,10 @@
   width: 35rem;
   height: auto;
   background: #ffffff;
+  @include respond("tab-land") {
+    margin: auto;
+    margin: 3rem;
+  }
   @include respond("phone") {
     margin: auto;
     margin-top: 3rem;
