@@ -46,6 +46,10 @@
       display: table-cell;
       &:first-child {
         padding-left: 1rem;
+
+        @include respond("tab-land") {
+          padding-left: 2rem;
+        }
       }
       &-img {
         width: 90%;

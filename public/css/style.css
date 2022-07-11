@@ -279,6 +279,11 @@ body {
 .card-images-cell:first-child {
   padding-left: 1rem;
 }
+@media (max-width: 75rem) {
+  .card-images-cell:first-child {
+    padding-left: 2rem;
+  }
+}
 .card-images-cell-img {
   width: 90%;
 }
