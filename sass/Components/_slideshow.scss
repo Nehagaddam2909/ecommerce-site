@@ -1,0 +1,16 @@
+.slideshow {
+  //display: inline;
+  position: relative;
+  &-banner {
+    width: 100%;
+    position: relative;
+    //overflow: hidden;
+  }
+  &-img {
+    width: 100%;
+    animation: zoom-out 12s linear infinite;
+  }
+}
+.slide1 {
+  animation: fade1 12s linear infinite;
+}

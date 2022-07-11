@@ -1,0 +1,27 @@
+.deals {
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  // height: 5rem;
+  &-menu {
+    :first-child {
+      //padding-left: .3rem;
+      margin-left: 0.8rem;
+    }
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    :not(:last-child) {
+      padding-right: 0.3rem;
+    }
+  }
+  &-item {
+    width: 16.5rem;
+    //height: 25rem;
+  }
+}
+.menu {
+  font-size: 3rem;
+  text-transform: uppercase;
+  background-image: linear-gradient(25deg, $color4, $color2);
+}

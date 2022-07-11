@@ -1,0 +1,26 @@
+@keyframes fade1 {
+  0% {
+    //visibility: visible;
+    content: url(/img/slideshow/slide10.jpg);
+  }
+
+  25% {
+    //visibility: hidden;
+    content: url(/img/slideshow/slide14.jpg);
+  }
+
+  75% {
+    content: url(/img/slideshow/slide13.jpg);
+  }
+
+  100% {
+    //visibility: visible;
+    content: url(/img/slideshow/slide10.jpg);
+  }
+}
+
+@keyframes zoom-out {
+  100% {
+    width: 100%;
+  }
+}
