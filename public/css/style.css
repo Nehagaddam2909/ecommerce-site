@@ -98,6 +98,7 @@ body {
 }
 
 .wrapper {
+  margin-top: 1rem;
   background-image: linear-gradient(to right, #e0438a, #fc0356);
   width: 100%;
 }
@@ -107,7 +108,7 @@ body {
   display: flex;
   max-width: calc(100% - 200px);
   margin: 0 auto;
-  height: 70px;
+  height: 60px;
   align-items: center;
   justify-content: space-between;
 }
@@ -130,7 +131,7 @@ nav .content .links {
 
 .content .links li {
   list-style: none;
-  line-height: 70px;
+  line-height: 60px;
 }
 
 .content .links li a,
@@ -158,7 +159,7 @@ nav .content .links {
   color: #fff;
   font-size: 18px;
   cursor: pointer;
-  line-height: 70px;
+  line-height: 60px;
   width: 70px;
   text-align: center;
 }
@@ -206,7 +207,7 @@ nav .content .links {
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  line-height: 72px;
+  line-height: 62px;
   width: 70px;
   background-color: #fff;
   border: none;
@@ -231,7 +232,8 @@ nav .content .links {
 }
 
 .content .links li:hover > ul {
-  top: 70px;
+  top: 60px;
+  margin-left: -15px;
   opacity: 1;
   visibility: visible;
   transition: all 0.3s ease;
@@ -240,7 +242,7 @@ nav .content .links {
 .content .links ul li a {
   display: block;
   width: 100%;
-  line-height: 30px;
+  line-height: 20px;
   border-radius: 0px !important;
   background-image: linear-gradient(to right, #e0438a, #fc0356);
 }
@@ -277,7 +279,7 @@ nav .content .links {
     background-image: linear-gradient(to right, #e0438a, #fc0356);
     height: 100%;
     width: 100%;
-    top: 69px;
+    top: 68px;
     left: -100%;
     z-index: 1;
     margin-left: 0;
