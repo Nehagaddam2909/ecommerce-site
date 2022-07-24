@@ -19,10 +19,10 @@ app.set("view engine", "ejs");
 app.set("views", "views1");
 
 const store1 = new monogoDbStore({
-  uri: process.env.MONGODB_URI,
+  uri: process.env.URI,
   collection: "sessions",
 });
-console.log(process.env.MONGODB_URI);
+console.log(process.env.URI);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookie());
@@ -59,7 +59,7 @@ app.use("/", (req, res, next) => {
     islogged: islogged,
   });
 });
-const uri = process.env.MONGODB_URI;
+const uri = process.env.URI;
 //console.log(process.env.MONGODB_URI);
 mongoose
   .connect(uri)
