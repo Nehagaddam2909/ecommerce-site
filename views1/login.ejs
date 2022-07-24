@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('layouts/includes/header.ejs')%>
+  </head>
+  <body>
+    <%- include('layouts/includes/navigation.ejs')%> <% if(errormessage) {%>
+    <div class="error-msg">
+      <i class="fa fa-times-circle"></i>
+      <%= errormessage%>
+    </div>
+    <% } %> <% if(informmessage) {%>
+    <div class="info-msg">
+      <i class="fa fa-info-circle"></i>
+      <%= informmessage%>
+    </div>
+    <% } %>
+    <main>
+      <div class="login">
+        <div class="heading login-heading">Login</div>
+        <form action="/login" method="POST">
+          <center>
+            <input
+              name="email"
+              class="login-text"
+              type="email"
+              placeholder="Email"
+              required
+            />
+            <input
+              name="password"
+              class="login-text"
+              type="password"
+              placeholder="Password"
+              required
+            />
+            <input type="submit" class="login-btn" value="login" />
+            <p class="login-para">New to user? <a href="signup">Signup</a></p>
+          </center>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

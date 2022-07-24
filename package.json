@@ -1,23 +1,34 @@
 {
-  "name": "assignment2",
+  "name": "nodejs_project",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "description": "First Node Project",
+  "main": "Example.js",
   "scripts": {
     "start": "nodemon app.js",
     "compile:sass": "sass sass/main.scss public/css/style.css -w",
     "dev": "npm-run-all --parallel start compile:sass"
-  
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "ejs": "^3.1.8",
-    "express": "^4.18.1"
-  },
   "devDependencies": {
-    "nodemon": "^2.0.19",
+    "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "alert": "^5.0.12",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongodb-session": "^3.1.1",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.3",
+    "handlebars": "^4.7.7",
+    "mongodb": "^4.7.0",
+    "mongoose": "^6.4.1",
     "npm-run-all": "^4.1.5",
+    "pug": "^3.0.2",
     "sass": "^1.53.0"
   }
 }
