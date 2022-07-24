@@ -58,10 +58,10 @@ app.use("/", (req, res, next) => {
     islogged: islogged,
   });
 });
-
+const uri = process.env.MONGODB_URI;
 mongoose
   .connect(
-    "mongodb+srv://neha:qG839y9U9dwkvmrF@cluster0.tawhqi5.mongodb.net/shop?retryWrites=true&w=majority"
+    uri
   )
   .then((result) => {
     Users.findOne().then((user) => {
