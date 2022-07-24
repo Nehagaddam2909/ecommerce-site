@@ -18,7 +18,7 @@ app.set("view engine", "ejs");
 app.set("views", "views1");
 
 const store1 = new monogoDbStore({
-  uri: "mongodb+srv://neha:qG839y9U9dwkvmrF@cluster0.tawhqi5.mongodb.net/shop",
+  uri: process.env.MONGODB_URI || "mongodb://localhost/ecommerce-shp-app",
   collection: "sessions",
 });
 // var MemoryStore = session.MemoryStore;
@@ -59,10 +59,9 @@ app.use("/", (req, res, next) => {
   });
 });
 const uri = process.env.MONGODB_URI;
+console.log(process.env.MONGODB_URI || "mongodb://localhost/ecommerce-shp-app");
 mongoose
-  .connect(
-    uri
-  )
+  .connect(uri)
   .then((result) => {
     Users.findOne().then((user) => {
       if (!user) {
