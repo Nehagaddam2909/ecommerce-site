@@ -1,0 +1,51 @@
+.login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35rem;
+  height: auto;
+  box-shadow: 0 0.3rem 0.6rem 0.3rem rgba(0, 0, 0, 0.2);
+  background: #ffff;
+  display: flex;
+  flex-direction: column;
+
+  &-heading {
+    color: $color2;
+    text-transform: uppercase;
+    font-size: 3rem;
+  }
+
+  &-text {
+    width: 90%;
+    padding: 0.7rem;
+    margin: 1rem;
+  }
+  &-text:focus {
+    //border: 20px solid white;
+    // border:none;
+    outline-style: ridge;
+    outline-width: 1px;
+    outline-color: $color2;
+  }
+
+  &-btn {
+    border: 0.2rem solid $color2;
+    padding: 1rem 2.5rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    color: $color2;
+    background-image: linear-gradient(to right, $color2, $color3);
+    color: #fff;
+    margin: 1rem;
+    border-radius: 2rem;
+  }
+
+  &-para {
+    font-size: 1.5rem;
+    margin: 1rem;
+    a {
+      text-decoration: none;
+    }
+  }
+}

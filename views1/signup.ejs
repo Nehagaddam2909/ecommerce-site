@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('layouts/includes/header.ejs')%>
+  </head>
+  <body>
+    <%- include('layouts/includes/navigation.ejs')%> <% if(signuperr) {%>
+    <div class="error-msg">
+      <i class="fa fa-times-circle"></i>
+      <%= signuperr%>
+    </div>
+    <% } %> <% if(errormessage) {%>
+    <div class="error-msg">
+      <i class="fa fa-times-circle"></i>
+      <%= errormessage%>
+    </div>
+    <% } %>
+    <main>
+      <div class="login">
+        <div class="heading login-heading">Signup</div>
+        <form action="/signup" method="POST">
+          <center>
+            <input
+              name="email"
+              class="login-text"
+              type="email"
+              placeholder="Email"
+              required
+            />
+            <input
+              name="password"
+              class="login-text"
+              type="password"
+              placeholder="Password"
+              required
+            />
+            <input
+              name="confirmpass"
+              class="login-text"
+              type="password"
+              placeholder="Confirm Password"
+              required
+            />
+            <input type="submit" class="login-btn" value="Signup" />
+            <p class="login-para">
+              New to user? <a href="/login">Login</a> here
+            </p>
+          </center>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

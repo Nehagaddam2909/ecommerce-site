@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('layouts/includes/header.ejs')%>
+  </head>
+  <body>
+    <%- include('layouts/includes/navigation.ejs')%> <% if(items.length>0 ) {%>
+      <div class="main-cart">
+      <% for(let product of items){%>
+      
+        <% if(product.productId) {%>
+        <div class="cart">
+          <h1 class="cart-header"><%= product.productId.title %></h1>
+          <h1 class="cart-content">Quantity: <%= product.quantity %></h2>
+          <a href="/delete-from-cart/<%=product.productId._id%>"><button class="cart-btn-delete">Delete</button></a>
+        </div>
+        <% } else {%>
+          <h1>Cart is empty </h1>
+          <% break %>
+        <%} %>
+
+      <% }%>
+   
+    <%} else {%>
+      <h1>Cart is empty </h1>
+      <%}%>
+    </div>
+<hr>
+   <a href="/orders">  <button class="cart-btn">Order now</button></a>
+  </body>
+</html>

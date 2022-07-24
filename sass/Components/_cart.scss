@@ -1,0 +1,82 @@
+.main-cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  //margin-top: 0.6rem;
+  align-items: center;
+}
+.cart {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 80rem;
+  display: table;
+  justify-content: space-evenly;
+  padding: 1rem;
+  margin: 1.5rem;
+  transition: 0.3s;
+
+  height: auto;
+  background: #ffffff;
+
+  @include respond("tab-land") {
+    width: 60rem;
+  }
+  @include respond("phone") {
+    width: 40rem;
+    justify-content: center;
+  }
+
+  &-header {
+    display: table-cell;
+  }
+  &-content {
+    display: table-cell;
+  }
+
+  &-btn {
+    margin: auto;
+    display: block;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: medium;
+    background-color: white;
+    border: 2px solid blue;
+    color: blue;
+    padding: 0.3rem;
+    margin-top: 2rem;
+
+    &:hover {
+      background-color: blue;
+      color: white;
+    }
+    &-delete {
+      margin: auto;
+      display: table-cell;
+      text-align: center;
+      cursor: pointer;
+      font-family: sans-serif;
+      font-size: medium;
+      background-color: white;
+      color: red;
+      border: 2px solid red;
+      padding: 0.3rem;
+
+      &:hover {
+        background-color: red;
+        color: white;
+      }
+    }
+  }
+  a {
+    text-decoration: none;
+    float: right;
+    margin-right: 0.5rem;
+  }
+}
+
+.cart-btn-delete {
+}
+.cart-btn-delete:hover,
+.cart-btn-delete:active {
+  background-color: red;
+  color: white;
+}

@@ -1,31 +1,82 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const app = express();
-//const sass = require("node-sass");
 const path = require("path");
+const Users = require("./models1/users");
+const session = require("express-session");
+const flash = require("connect-flash");
+const monogoDbStore = require("connect-mongodb-session")(session);
+const cookie = require("cookie-parser");
+const mongoose = require("mongoose");
+
+const adminData = require("./Routes/admin");
+const showRoutes = require("./Routes/client");
+const mongoConnect = require("./util/database").MongoConnect;
+
+const app = express();
+
 app.set("view engine", "ejs");
-app.set("views", "views");
+app.set("views", "views1");
 
-// app.use(
-//   sass.middleware({
-//     src: __dirname + "/sass", //where the sass files are
-//     dest: __dirname + "/public", //where css should go
-//     debug: true, // obvious
-//   })
-// );
-
+const store1 = new monogoDbStore({
+  uri: "mongodb+srv://neha:qG839y9U9dwkvmrF@cluster0.tawhqi5.mongodb.net/shop",
+  collection: "sessions",
+});
+// var MemoryStore = session.MemoryStore;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cookie());
+app.use(
+  session({
+    secret: "my secret",
+    resave: false,
 
-//const adminData = require("./ad");
+    saveUninitialized: false,
+    store: store1,
+  })
+);
+app.use(flash());
 
-//app.use(adminData.route);
-const client = require("./cl");
-app.use(client);
-
-app.use("/", (req, res, next) => {
-  res.status(404).render("pgn", { docTitle: "page not found", path: "" });
+app.use((req, res, next) => {
+  if (!req.session.user) {
+    next();
+  } else {
+    Users.findById(req.session.user._id).then((user) => {
+      req.user = user;
+      next();
+    });
+  }
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port);
+app.use(adminData.routes);
+app.use(showRoutes);
+
+app.use("/", (req, res, next) => {
+  const islogged = req.session.islogged;
+  res.status(404).render("pgn", {
+    docTitle: "page not found",
+    path: "",
+    islogged: islogged,
+  });
+});
+
+mongoose
+  .connect(
+    "mongodb+srv://neha:qG839y9U9dwkvmrF@cluster0.tawhqi5.mongodb.net/shop?retryWrites=true&w=majority"
+  )
+  .then((result) => {
+    Users.findOne().then((user) => {
+      if (!user) {
+        const user = new Users({
+          email: "test@gmail.com",
+          password: "tester",
+          cart: {
+            tems: [],
+          },
+        });
+        user.save();
+      }
+    });
+
+    app.listen(3000);
+  })
+  .catch((err) => console.log(err));
