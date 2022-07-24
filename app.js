@@ -19,7 +19,7 @@ app.set("view engine", "ejs");
 app.set("views", "views1");
 
 const store1 = new monogoDbStore({
-  uri: process.env.URI,
+  uri: JSON.stringify(process.env.URI),
   collection: "sessions",
 });
 console.log(process.env.URI);
@@ -59,7 +59,7 @@ app.use("/", (req, res, next) => {
     islogged: islogged,
   });
 });
-const uri = process.env.URI;
+const uri = JSON.stringify(process.env.URI);
 //console.log(process.env.MONGODB_URI);
 mongoose
   .connect(uri)
