@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+const en = require("dotenv").config();
 const Users = require("./models1/users");
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -18,10 +19,10 @@ app.set("view engine", "ejs");
 app.set("views", "views1");
 
 const store1 = new monogoDbStore({
-  uri: process.env.MONGODB_URI || "mongodb://localhost/ecommerce-shp-app",
+  uri: process.env.MONGODB_URI,
   collection: "sessions",
 });
-// var MemoryStore = session.MemoryStore;
+console.log(process.env.MONGODB_URI);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookie());
@@ -59,7 +60,7 @@ app.use("/", (req, res, next) => {
   });
 });
 const uri = process.env.MONGODB_URI;
-console.log(process.env.MONGODB_URI || "mongodb://localhost/ecommerce-shp-app");
+//console.log(process.env.MONGODB_URI);
 mongoose
   .connect(uri)
   .then((result) => {
