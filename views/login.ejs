@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('includes/header.ejs')%>
+  </head>
+  <body>
+    <div>
+      <%- include('includes/navigation.ejs')%><br />
+
+      <div class="login">
+        <div class="heading login-heading">Login</div>
+        <form method="post">
+          <center>
+            <input
+              name="email"
+              class="login-text"
+              type="email"
+              placeholder="Email"
+              required
+            />
+            <input
+              name="password"
+              class="login-text"
+              type="password"
+              placeholder="Password"
+              required
+            />
+            <input type="submit" class="login-btn" value="login" />
+            <p class="login-para">New to user? <a href="#">signup</a></p>
+          </center>
+        </form>
+      </div>
+      <!-- <div class="signup-form">
+            
+            <form method="post">
+               <center>
+               <input name="email" class="login-text" type="email" placeholder="Email" required>
+               <input name="password" class="login-text" type="password" placeholder="Password" required>
+               <input name="confirm-password" class="login-text" type="password" placeholder="Confirm Password" required>
+               <input type="submit" class="submit-btn" value="signup">
+               </center>
+            </form>  
+         </div> -->
+    </div>
+  </body>
+</html>

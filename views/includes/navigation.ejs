@@ -19,7 +19,11 @@
             <li><a href="#">Home Appliances</a></li>
           </ul>
         </li>
-
+        <% if(islogged) { %>
+        <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+        <li><a href="/login">Login</a></li>
+        <% } %>
         <li><a href="#">Feedback</a></li>
       </ul>
     </div>

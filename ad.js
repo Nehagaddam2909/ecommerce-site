@@ -5,7 +5,11 @@ const { Router } = require("express");
 const usernames = [];
 
 route.get("/users", (req, res) => {
-  res.render("users", { docTitle: "add user", path: "/users" });
+  res.render("users", {
+    docTitle: "add user",
+    path: "/users",
+    islogged: false,
+  });
 });
 
 route.post("/users", (req, res, next) => {

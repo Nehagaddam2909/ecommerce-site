@@ -1,14 +1,15 @@
 const express = require("express");
 const Path = require("path");
-const routes = express.Router();
-
-routes.get("/", (req, res, next) => {
-  const usernames = [];
-  res.render("default1", {
-    probs: usernames,
-    docTitle: "usernames",
-    path: "/",
-  });
+const route = express.Router();
+// const Products = require("../models1/products");
+// const adminData = require("./admin");
+// const Users = require("../models1/users");
+route.get("/", (req, res, next) => {
+  //const islogged = req.session.islogged;
+  const prob = [];
+  res.render("default1", { probs: prob, docTitle: "home", islogged: false });
 });
-
-module.exports = routes;
+route.use("/login", (req, res, next) => {
+  res.render("login", { docTitle: "title", islogged: false });
+});
+module.exports = route;
