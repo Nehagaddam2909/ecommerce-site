@@ -1,43 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include('layouts/inlcudes/header.ejs')%>
+    <%- include('layouts/includes/header.ejs')%>
   </head>
   <body>
     <%- include('layouts/includes/navigation.ejs')%>
     <main>
-      <div class="card-login">
-        <form action="/edited/<%= probs._id%>" method="POST">
-          <label class="card-login-title">Title: </label><br />
-          <input
-            type="text"
-            name="title"
-            value="<%= probs.title%>"
-            required
-          /><br />
-          <label class="card-login-title">Price: </label><br />
-          <input
-            type="text"
-            name="price"
-            value="<%= probs.price%>"
-            required
-          /><br />
-          <label class="card-login-title">Description: </label><br />
-          <input
-            type="text"
-            name="desc"
-            value="<%= probs.description%>"
-            required
-          />
-          <br />
-          <label class="card-login-title">Url: </label><br /><input
-            type="text"
-            name="url"
-            value="<%= probs.imageUrl%>"
-            required
-          /><br />
-          <button type="submit" class="card-login-submit">Add products</button>
-        </form>
+      <div class="login">
+        <div class="heading login-heading">Edit Product</div>
+        <center>
+          <form action="/edited/<%= probs._id%>" method="POST">
+            <input
+              type="text"
+              name="title"
+              value="<%= probs.title%>"
+              class="login-text"
+              required
+            /><br />
+
+            <input
+              class="login-text"
+              type="text"
+              name="price"
+              value="<%= probs.price%>"
+              required
+            /><br />
+
+            <input
+              type="text"
+              name="desc"
+              class="login-text"
+              value="<%= probs.description%>"
+              required
+            />
+            <br />
+            <input
+              type="text"
+              name="url"
+              class="login-text"
+              value="<%= probs.imageUrl%>"
+              required
+            /><br />
+            <label class="login-label">Category: </label>
+            <select name="category" class="login-category">
+              <% var options =["Home Appliances",
+              "fashion","beauty","electronics" ]; %> <%for ( var i = 0; i <
+              options.length; i++ ) { if(options[i]==probs.category){%>
+              <option value="<%=options[ i ] %>" selected>
+                <%=options[i] %>
+              </option>
+              <%} else {%>
+              <option value="<%=options[ i ] %>"><%=options[i] %></option>
+              <% } }%>
+            </select>
+            <input type="submit" class="login-btn" value="Edit products" />
+          </form>
+        </center>
       </div>
     </main>
   </body>

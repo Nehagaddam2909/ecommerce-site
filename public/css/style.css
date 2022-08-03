@@ -73,6 +73,36 @@ body {
   text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2);
 }
 
+.info-msg,
+.success-msg,
+.warning-msg,
+.error-msg {
+  font-size: 2rem;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+}
+
+.info-msg {
+  color: #059;
+  background-color: #bef;
+}
+
+.success-msg {
+  color: #270;
+  background-color: #dff2bf;
+}
+
+.warning-msg {
+  color: #9f6000;
+  background-color: #feefb3;
+}
+
+.error-msg {
+  color: #d8000c;
+  background-color: #ffbaba;
+}
+
 .cat-nav {
   background-color: #fff;
   display: flex;
@@ -346,6 +376,10 @@ nav .content .links {
     padding-right: 30px;
   }
 }
+.f {
+  float: inline-end;
+}
+
 .slideshow {
   position: relative;
 }
@@ -692,6 +726,20 @@ nav .content .links {
 .login-para a {
   text-decoration: none;
 }
+.login-category {
+  width: 50%;
+  font-size: 1.5rem;
+  margin: 0.7rem;
+  padding: 0.6rem;
+  font-family: sans-serif;
+}
+.login-label {
+  width: 50%;
+  font-size: 1.5rem;
+  padding: 1rem;
+  text-transform: uppercase;
+  font-family: sans-serif;
+}
 
 .div-order {
   top: 50%;
@@ -752,9 +800,10 @@ nav .content .links {
 }
 
 main.display_product_card {
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
   margin: 1rem;
+  justify-content: space-evenly;
 }
 @media (max-width: 75rem) {
   main.display_product_card {
@@ -777,6 +826,7 @@ main.display_product_card {
   width: 30rem;
   margin-left: 2rem;
   height: auto;
+  background-color: #fff;
   margin-bottom: 3rem;
 }
 @media (max-width: 56.25rem) {
@@ -785,9 +835,10 @@ main.display_product_card {
   }
 }
 .product-card-img {
-  height: 20rem;
-  max-width: 20rem;
-  object-fit: cover;
+  height: 25rem;
+  width: 100%;
+  padding-top: 0.4rem;
+  object-fit: contain;
   margin: auto;
   display: block;
 }
@@ -801,7 +852,7 @@ main.display_product_card {
   margin: 0;
 }
 .product-card-content p {
-  font-size: 2rem;
+  font-size: 1.7rem;
   text-align: justify;
   padding: 0.5rem;
   font-family: sans-serif;
@@ -820,6 +871,7 @@ main.display_product_card {
   border-radius: 0%;
 }
 .product-card-submit {
+  background-color: #fff;
   border: 10px solid;
   border-image-slice: 1;
   border-width: 2px;
@@ -827,7 +879,7 @@ main.display_product_card {
   color: #e0438a;
   text-transform: uppercase;
   padding: 1rem;
-  margin: 2rem;
+  margin: 1rem;
   font-weight: bold;
 }
 .product-card-submit:hover {

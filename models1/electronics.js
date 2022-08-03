@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const productSchema = new Schema({
+const electronicsSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -19,10 +19,6 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
-  category: {
-    type: String,
-    required: true,
-  },
 });
 
-module.exports = mongoose.model("Products", productSchema);
+module.exports = mongoose.model("electronics", electronicsSchema);

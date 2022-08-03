@@ -18,3 +18,28 @@
     text-shadow: 0.5rem 1rem 2rem rgba(#000, 0.2);
   }
 }
+.info-msg,
+.success-msg,
+.warning-msg,
+.error-msg {
+  font-size: 2rem;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+}
+.info-msg {
+  color: #059;
+  background-color: #bef;
+}
+.success-msg {
+  color: #270;
+  background-color: #dff2bf;
+}
+.warning-msg {
+  color: #9f6000;
+  background-color: #feefb3;
+}
+.error-msg {
+  color: #d8000c;
+  background-color: #ffbaba;
+}

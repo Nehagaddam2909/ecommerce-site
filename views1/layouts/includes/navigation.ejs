@@ -19,25 +19,35 @@
             <li><a href="/homeApp">Home Appliances</a></li>
           </ul>
         </li>
+
+        <li><a href="#">Feedback</a></li>
+
         <% if(islogged) { %>
-        <li>
-          <a href="/logout">Logout</a>
+        <li class="f">
+          <% if(username) {%>
+          <a href="#"><%= username %></a>
+          <% } %>
+
           <ul>
+            <% if(!isSeller){%>
             <li><a href="/cart">My Cart</a></li>
             <li><a href="/get-order">My Orders</a></li>
-            <li><a href="/admin-products">Add products</a></li>
-            <!-- <li><a href="/homeApp">Home Appliances</a></li> -->
+            <% } else if(isSeller){%>
+            <li><a href="/add-products">Add products</a></li>
+            <li><a href="/admin-products">View Products</a></li>
+            <%}%>
+            <li><a href="/logout">Logout</a></li>
           </ul>
         </li>
         <% } else { %>
         <li><a href="/login">Login</a></li>
         <% } %>
-        <li><a href="#">Feedback</a></li>
       </ul>
     </div>
+
     <label for="show-search" class="search-icon"
-      ><i class="fas fa-search"></i
-    ></label>
+      ><i class="fas fa-search"></i>
+    </label>
     <form action="#" class="search-box">
       <input type="text" placeholder="Type Something to Search..." required />
       <button type="submit" class="go-icon">

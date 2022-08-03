@@ -5,22 +5,27 @@ const bcrypt = require("bcryptjs");
 const flash = require("connect-flash");
 const Products = require("../models1/products");
 const Users = require("../models1/users");
+const fashion = require("../models1/fashion");
+const beauty = require("../models1/beauty");
 const Orders = require("../models1/Order");
-
+const electorincs = require("../models1/electronics");
+const homeApp = require("../models1/homeApp");
+const electronics = require("../models1/electronics");
+const Sellers = require("../models1/seler");
 //add products page
 routes.get("/add-products", (req, res) => {
-  //console.log(req.session.user);
-  //res.cookie("session_id", "12345");
-
+  const isSeller = req.session.isSeller;
   const islogged = req.session.islogged;
-  if (!islogged) {
+  if (!isSeller) {
     req.flash("loginpath", "/add-products");
-    res.redirect("/login");
+    res.redirect("/seller-login");
   } else {
     res.render("add-products", {
       docTitle: "Add products",
       path: "/add-products",
       islogged: islogged,
+      isSeller: isSeller,
+      username: req.session.user.username,
     });
   }
 });
@@ -28,6 +33,9 @@ routes.get("/add-products", (req, res) => {
 //for getting the details of particular product
 routes.use("/details/:productID", (req, res, next) => {
   const islogged = req.session.islogged;
+  const isSeller = req.session.isSeller;
+  let mn;
+  if (islogged) mn = req.session.user.username;
 
   const proid = req.params.productID;
   Products.findById(proid)
@@ -38,6 +46,8 @@ routes.use("/details/:productID", (req, res, next) => {
         prob: pro,
         path: "/details/:productID",
         islogged: islogged,
+        isSeller: isSeller,
+        username: mn,
       });
     })
     .catch((err) => {
@@ -48,28 +58,39 @@ routes.use("/details/:productID", (req, res, next) => {
 //to get the data of admin products
 routes.get("/admin-products", (req, res, next) => {
   const islogged = req.session.islogged;
-  if (islogged) {
-    Products.find()
-      .then((product) => {
-        res.render("edit", {
-          probs: product,
-          docTitle: "Admin products",
-          path: "/admin-products",
-          islogged: islogged,
+  const isSeller = req.session.isSeller;
+  if (isSeller) {
+    Sellers.findById(req.session.user._id).then((user) => {
+      user
+        .populate("products.items")
+        .then((user) => {
+          const product = user.products.items;
+          //console.log(product);
+          res.render("edit", {
+            probs: product,
+            docTitle: "Admin products",
+            path: "/admin-products",
+            islogged: islogged,
+            isSeller: isSeller,
+            username: req.session.user.username,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    });
   } else {
-    res.redirect("/login");
+    res.redirect("/seller-login");
   }
 });
 //for rendering the form of edit data
 routes.use("/edit-data/:productID", (req, res, next) => {
   const islogged = req.session.islogged;
   const proId = req.params.productID;
-
+  //console.log(proId);
+  const isSeller = req.session.isSeller;
+  let mn;
+  if (islogged) mn = req.session.user.username;
   Products.findById(proId)
     .then((product) => {
       res.render("edit-data", {
@@ -77,10 +98,13 @@ routes.use("/edit-data/:productID", (req, res, next) => {
         path: "/admin-products",
         probs: product,
         islogged: islogged,
+        isSeller: isSeller,
+        username: mn,
       });
     })
     .catch((err) => {
-      console.log(err);
+      //console.log(err);
+      res.redirect("/admin-products");
     });
 });
 //editing the product
@@ -91,14 +115,169 @@ routes.use("/edited/:productId", (req, res, next) => {
   const desc = req.body.desc;
   const url = req.body.url;
   const prod = req.params.productId;
+  const cat = req.body.category;
 
   Products.findById(prod)
-    .then((product) => {
-      product.title = title;
-      product.description = desc;
-      product.price = price;
-      product.imageUrl = url;
-      return product.save();
+    .then((product1) => {
+      product1.title = title;
+      product1.description = desc;
+      product1.price = price;
+      product1.imageUrl = url;
+      //product1.category = cat;
+
+      if (cat != product1.category) {
+        let cat1 = product1.category;
+        product1.category = cat;
+        if (cat1 == "fashion") {
+          fashion
+            .findByIdAndRemove(prod)
+            .then((result) => {
+              console.log("Successfully deleted");
+
+              //res.redirect("/admin-products");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else if (cat1 == "electronics") {
+          electorincs
+            .findByIdAndRemove(prod)
+            .then((result) => {
+              console.log("Successfully deleted");
+              //res.redirect("/admin-products");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else if (cat1 == "beauty") {
+          beauty
+            .findByIdAndRemove(prod)
+            .then((result) => {
+              console.log("Successfully deleted");
+
+              //res.redirect("/admin-products");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          homeApp
+            .findByIdAndRemove(prod)
+            .then((result) => {
+              console.log("Successfully deleted");
+
+              //res.redirect("/admin-products");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+
+        let product;
+        if (cat == "fashion") {
+          product = new fashion({
+            _id: prod,
+            title: title,
+            price: price,
+            description: desc,
+            imageUrl: url,
+          });
+        } else if (cat == "electronics") {
+          product = new electorincs({
+            _id: prod,
+            title: title,
+            price: price,
+            description: desc,
+            imageUrl: url,
+          });
+        } else if (cat == "beauty") {
+          product = new beauty({
+            _id: prod,
+            title: title,
+            price: price,
+            description: desc,
+            imageUrl: url,
+          });
+        } else {
+          //  console.log(cat);
+          product = new homeApp({
+            _id: prod,
+            title: title,
+            price: price,
+            description: desc,
+            imageUrl: url,
+          });
+        }
+        product
+          .save()
+          .then((result) => {
+            Sellers.findById(req.session.user._id).then((user) => {
+              console.log(result);
+              return user.addProducts(result);
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        if (cat == "fashion") {
+          fashion.findById(prod).then((resul) => {
+            resul.title = title;
+            resul.description = desc;
+            resul.imageUrl = url;
+            resul.price = price;
+            resul.category = cat;
+
+            resul.save();
+          });
+        } else if (cat == "beauty") {
+          beauty.findById(prod).then((resul) => {
+            resul.title = title;
+            resul.description = desc;
+            resul.imageUrl = url;
+            resul.price = price;
+            resul.category = cat;
+
+            resul.save();
+          });
+        } else if (cat == "electorincs") {
+          electronics.findById(prod).then((resul) => {
+            resul.title = title;
+            resul.description = desc;
+            resul.imageUrl = url;
+            resul.price = price;
+            resul.category = cat;
+
+            resul.save();
+          });
+        } else {
+          homeApp
+            .findById(prod)
+            .then((resul) => {
+              //console.log(resul);
+              resul.title = title;
+              resul.description = desc;
+              resul.imageUrl = url;
+              resul.price = price;
+              resul.category = cat;
+              resul.save();
+            })
+            .catch((arr) => {
+              console.log(arr);
+            });
+        }
+      }
+
+      product1
+        .save()
+        .then((product) => {
+          Sellers.findById(req.session.user._id).then((user) => {
+            return user.addProducts(product);
+          });
+        })
+        .then((result) => {
+          console.log(result);
+        });
     })
     .then((result) => {
       res.redirect("/admin-products");
@@ -112,143 +291,57 @@ routes.use("/edited/:productId", (req, res, next) => {
 routes.use("/delete-data/:productID", (req, res, next) => {
   const islogged = req.session.islogged;
   const prob = req.params.productID;
-  if (islogged) {
+  const isSeller = req.session.isSeller;
+  if (isSeller) {
     Products.findByIdAndRemove(prob)
       .then((result) => {
-        console.log("Successfully deleted");
-        res.redirect("/admin-products");
+        if (result.category == "fashion") {
+          fashion.findByIdAndRemove(prob).then((result) => {
+            res.redirect("/admin-products");
+          });
+        } else if (result.category == "beauty") {
+          beauty.findByIdAndRemove(prob).then((result) => {
+            res.redirect("/admin-products");
+          });
+        } else if (result.category == "electronics") {
+          electronics.findByIdAndRemove(prob).then((result) => {
+            res.redirect("/admin-products");
+          });
+        } else {
+          homeApp.findByIdAndRemove(prob).then((result) => {
+            res.redirect("/admin-products");
+          });
+
+          //  Sellers.findById(())
+        }
+
+        Sellers.findById(req.session.user._id)
+          .then((user) => {
+            user
+              .removeProducts(prob)
+              .then((product) => {
+                console.log(product);
+                res.redirect("/admin-products");
+              })
+              .catch((arr) => {
+                console.log(arr);
+                //res.redirect("/admin-products");
+              });
+          })
+          .catch((arr) => {
+            console.log(arr);
+            // res.redirect("/admin-products");
+          });
+        //console.log(req.session.user);
       })
       .catch((err) => {
         console.log(err);
       });
   } else {
     req.flash("loginpath", "/delete-data/" + prob);
-    res.redirect("/login");
+    res.redirect("/seller-login");
   }
 });
-
-//showing the car.then(t
-routes.get("/cart", (req, res, next) => {
-  const islogged = req.session.islogged;
-  //console.log(req.session.user instanceof Users);
-
-  Users.findById(req.session.user._id).then((user) => {
-    user.populate("cart.items.productId").then((user) => {
-      const product = user.cart.items;
-
-      //console.log(product);
-      res.render("cart", {
-        docTitle: "cart",
-        items: product,
-        path: "/cart",
-        islogged: islogged,
-      });
-    });
-  });
-});
-
-//adding to the cart
-routes.use("/add-to-cart/:productID", (req, res, next) => {
-  const islogged = req.session.islogged;
-  const proId = req.params.productID;
-
-  if (!islogged) {
-    const str = "/add-to-cart/" + proId;
-    req.flash("loginpath", str);
-
-    res.redirect("/login");
-  } else {
-    Products.findById(proId)
-      .then((product) => {
-        //console.log(req.session.user instanceof Users);
-        //const user = new Users(req.session.user);
-
-        return req.user.addTocart(product);
-      })
-      .then((result) => {
-        res.redirect("/cart");
-      });
-  }
-});
-
-//deleteing from the cart
-
-routes.use("/delete-from-cart/:productID", (req, res, next) => {
-  const islogged = req.session.islogged;
-  const proid = req.params.productID;
-  if (!islogged) {
-    req.flash("loginpath", "/delete-from-cart/" + proid);
-    res.redirect("/login");
-  } else {
-    req.user
-      .removeFromCart(proid)
-      .then((product) => {
-        res.redirect("/cart");
-      })
-      .catch((err) => console.log(err));
-  }
-});
-
-//placing the order
-routes.use("/orders", (req, res, next) => {
-  const islogged = req.session.islogged;
-  if (!islogged) {
-    req.flash("loginpath", "/orders");
-    res.redirect("/login");
-  } else {
-    req.user
-      .populate("cart.items.productId")
-      .then((user) => {
-        const getProduct = user.cart.items.map((i) => {
-          return { product: { ...i.productId._doc }, quantity: i.quantity };
-        });
-        const orders = new Orders({
-          Products: getProduct,
-          user: {
-            userId: req.session.user._id,
-            email: req.session.user.email,
-          },
-        });
-        //console.log(orders);
-        // this.cart.items = [];
-        return orders.save();
-      })
-      .then((result) => {
-        Users.findById(req.session.user._id)
-          .then((user) => {
-            user.clearCart();
-          })
-          .then(() => {
-            res.redirect("/get-order");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      });
-  }
-});
-
-//getting the order
-routes.use("/get-order", (req, res, next) => {
-  const islogged = req.session.islogged;
-  if (!islogged) {
-    req.flash("loginpath", "/get-order");
-    res.redirect("/login");
-  } else {
-    //console.log(req.session.user);
-    Orders.find({ "user.userId": req.session.user._id }).then((result) => {
-      console.log(result);
-
-      res.render("order", {
-        docTitle: "order",
-        path: "/order",
-        probs: result,
-        islogged: islogged,
-      });
-    });
-  }
-});
-
 //adding data to mongo db
 routes.post("/add-products", (req, res, next) => {
   // console.log(req.session.user);
@@ -258,13 +351,40 @@ routes.post("/add-products", (req, res, next) => {
   const price = req.body.price;
   const desc = req.body.desc;
   const url = req.body.url;
+  const cat = req.body.category;
 
-  const product = new Products({
-    title: title,
-    price: price,
-    description: desc,
-    imageUrl: url,
-  });
+  let product;
+  if (cat == "fashion") {
+    product = new fashion({
+      title: title,
+      price: price,
+      description: desc,
+      imageUrl: url,
+    });
+  } else if (cat == "electronics") {
+    product = new electronics({
+      title: title,
+      price: price,
+      description: desc,
+      imageUrl: url,
+    });
+  } else if (cat == "homeApp") {
+    product = new homeApp({
+      title: title,
+      price: price,
+      description: desc,
+      imageUrl: url,
+    });
+  } else {
+    product = new beauty({
+      title: title,
+      price: price,
+      description: desc,
+      imageUrl: url,
+    });
+  }
+  const id = product._id;
+  console.log(id);
   product
     .save()
     .then((result) => {
@@ -273,6 +393,32 @@ routes.post("/add-products", (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
+
+  product = new Products({
+    _id: id,
+    title: title,
+    price: price,
+    description: desc,
+    imageUrl: url,
+    category: cat,
+  });
+  //Sellers.findById(req.session.user._id).then((user) => {});
+  product
+    .save()
+    .then((product) => {
+      console.log(product);
+      console.log(req.user);
+      Sellers.findById(req.session.user._id).then((user) => {
+        return user.addProducts(product);
+      });
+    })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   res.redirect("/");
 });
 
@@ -286,6 +432,7 @@ routes.get("/signup", (req, res, next) => {
     path: "/signup",
     signuperr: req.flash("signuperr")[0],
     islogged: req.session.islogged,
+    isSeller: req.session.isSeller,
     errormessage: str,
   });
 });
@@ -293,6 +440,9 @@ routes.get("/signup", (req, res, next) => {
 //adding data to db
 routes.post("/signup", (req, res, next) => {
   const email = req.body.email;
+
+  const username = req.body.username;
+  console.log(username);
   const pass = req.body.password;
   const confirmpass = req.body.confirmpass;
   Users.findOne({ email: email }).then((user) => {
@@ -305,7 +455,9 @@ routes.post("/signup", (req, res, next) => {
       .then((hashedPassword) => {
         const user = new Users({
           email: email,
+
           password: hashedPassword,
+          username: username,
           cart: { items: [] },
         });
         //console.log(user);
@@ -318,68 +470,5 @@ routes.post("/signup", (req, res, next) => {
   });
 });
 
-//addig user login page
-routes.get("/login", (req, res, next) => {
-  const islogged = req.session.islogged;
-  res.render("login", {
-    docTitle: "login",
-    path: "/login",
-    islogged: islogged,
-    errormessage: req.flash("errormessage")[0],
-    informmessage: req.flash("informmessage")[0],
-  });
-});
-
-//checking the login
-routes.post("/login", (req, res, next) => {
-  //console.log(req.session.user);
-  const email = req.body.email;
-  const pass = req.body.password;
-  Users.findOne({ email: email }).then((user) => {
-    if (!user) return redirect("/login");
-
-    bcrypt.compare(pass, user.password).then((doMatch) => {
-      if (doMatch) {
-        req.session.user = user;
-        req.session.islogged = true;
-        return req.session.save((err) => {
-          const str = req.flash("loginpath")[0];
-          //console.log(str);
-          if (str) res.redirect(str);
-          else res.redirect("/");
-        });
-      }
-      req.flash("errormessage", "Invalud username or password");
-      res.redirect("/login");
-    });
-  });
-
-  //res.redirect("/");
-});
-
-//logout the user
-routes.use("/logout", (req, res, next) => {
-  req.session.destroy((err) => {
-    res.redirect("/");
-  });
-});
-
-//adding fashion page
-routes.use("/fashion", (req, res, next) => {
-  const islogged = req.session.islogged;
-  Products.find()
-    .then((products) => {
-      res.render("fashion", {
-        probs: products,
-        docTitle: "Shop",
-        path: "/",
-        islogged: islogged,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      // res.redirect("/");
-    });
-});
 exports.routes = routes;
 //exports.products = products;
