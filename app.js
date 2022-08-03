@@ -21,7 +21,7 @@ app.set("view engine", "ejs");
 app.set("views", "views1");
 
 const store1 = new monogoDbStore({
-  uri: "mongodb+srv://neha:qG839y9U9dwkvmrF@cluster0.tawhqi5.mongodb.net/shop",
+  uri: process.env.URI,
   collection: "sessions",
 });
 // var MemoryStore = session.MemoryStore;
@@ -71,9 +71,7 @@ app.use("/", (req, res, next) => {
 });
 
 mongoose
-  .connect(
-    "mongodb+srv://neha:qG839y9U9dwkvmrF@cluster0.tawhqi5.mongodb.net/shop?retryWrites=true&w=majority"
-  )
+  .connect(process.env.URI)
   .then((result) => {
     // Users.findOne().then((user) => {
     //   if (!user) {
@@ -88,6 +86,6 @@ mongoose
     //   }
     //});
 
-    app.listen(3000);
+    app.listen(process.env.PORT || 3000);
   })
   .catch((err) => console.log(err));
