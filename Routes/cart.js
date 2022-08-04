@@ -6,8 +6,9 @@ const Users = require("../models1/users");
 //showing the car.then(t
 routes.get("/cart", (req, res, next) => {
   const islogged = req.session.islogged;
+  const isSeller = req.session.isSeller;
   //console.log(req.session.user instanceof Users);
-  if (islogged) {
+  if (islogged && !isSeller) {
     Users.findById(req.session.user._id).then((user) => {
       user.populate("cart.items.productId").then((user) => {
         const product = user.cart.items;
@@ -25,6 +26,9 @@ routes.get("/cart", (req, res, next) => {
       });
     });
   } else {
+    if (isSeller) {
+      req.flash("errormessage", "Seller cannot have cart");
+    }
     res.redirect("/login");
   }
 });
@@ -33,11 +37,13 @@ routes.get("/cart", (req, res, next) => {
 routes.use("/add-to-cart/:productID", (req, res, next) => {
   const islogged = req.session.islogged;
   const proId = req.params.productID;
-
-  if (!islogged) {
+  const isSeller = req.session.isSeller;
+  if (!islogged || isSeller) {
     const str = "/add-to-cart/" + proId;
     req.flash("loginpath", str);
-
+    if (isSeller) {
+      req.flash("errormessage", "Seller cannot have cart");
+    }
     res.redirect("/login");
   } else {
     Products.findById(proId)

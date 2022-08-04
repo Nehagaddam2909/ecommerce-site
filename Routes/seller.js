@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const flash = require("connect-flash");
 const Products = require("../models1/products");
 const Users = require("../models1/users");
-const Sellers = require("../models1/seler");
+const Sellers = require("../models1/seller_product");
 const fashion = require("../models1/fashion");
 const beauty = require("../models1/beauty");
 const Orders = require("../models1/Order");
@@ -112,13 +112,10 @@ routes.post("/seller-sign", (req, res, next) => {
       .then((hashedPassword) => {
         const user = new Sellers({
           email: email,
-
           password: hashedPassword,
           username: username,
-          cart: { items: [] },
           products: { items: [] },
         });
-        //console.log(user);
         return user.save();
       })
       .then((result) => {

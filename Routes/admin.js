@@ -11,7 +11,7 @@ const Orders = require("../models1/Order");
 const electorincs = require("../models1/electronics");
 const homeApp = require("../models1/homeApp");
 const electronics = require("../models1/electronics");
-const Sellers = require("../models1/seler");
+const Sellers = require("../models1/seller_product");
 //add products page
 routes.get("/add-products", (req, res) => {
   const isSeller = req.session.isSeller;
@@ -65,14 +65,21 @@ routes.get("/admin-products", (req, res, next) => {
         .populate("products.items")
         .then((user) => {
           const product = user.products.items;
+          const pro = {
+            items: [],
+          };
           //console.log(product);
-          res.render("edit", {
-            probs: product,
-            docTitle: "Admin products",
-            path: "/admin-products",
-            islogged: islogged,
-            isSeller: isSeller,
-            username: req.session.user.username,
+          Products.find({ _id: { $in: product } }).then((result) => {
+            //pro.items.push(result);
+            //console.log(result);
+            res.render("edit", {
+              probs: result,
+              docTitle: "Admin products",
+              path: "/admin-products",
+              islogged: islogged,
+              isSeller: isSeller,
+              username: req.session.user.username,
+            });
           });
         })
         .catch((err) => {
@@ -210,12 +217,7 @@ routes.use("/edited/:productId", (req, res, next) => {
         }
         product
           .save()
-          .then((result) => {
-            Sellers.findById(req.session.user._id).then((user) => {
-              console.log(result);
-              return user.addProducts(result);
-            });
-          })
+          .then()
           .catch((err) => {
             console.log(err);
           });
@@ -268,16 +270,9 @@ routes.use("/edited/:productId", (req, res, next) => {
         }
       }
 
-      product1
-        .save()
-        .then((product) => {
-          Sellers.findById(req.session.user._id).then((user) => {
-            return user.addProducts(product);
-          });
-        })
-        .then((result) => {
-          console.log(result);
-        });
+      product1.save().then((result) => {
+        // console.log(result);
+      });
     })
     .then((result) => {
       res.redirect("/admin-products");
@@ -297,19 +292,19 @@ routes.use("/delete-data/:productID", (req, res, next) => {
       .then((result) => {
         if (result.category == "fashion") {
           fashion.findByIdAndRemove(prob).then((result) => {
-            res.redirect("/admin-products");
+          //  res.redirect("/admin-products");
           });
         } else if (result.category == "beauty") {
           beauty.findByIdAndRemove(prob).then((result) => {
-            res.redirect("/admin-products");
+           // res.redirect("/admin-products");
           });
         } else if (result.category == "electronics") {
           electronics.findByIdAndRemove(prob).then((result) => {
-            res.redirect("/admin-products");
+            //res.redirect("/admin-products");
           });
         } else {
           homeApp.findByIdAndRemove(prob).then((result) => {
-            res.redirect("/admin-products");
+           // res.redirect("/admin-products");
           });
 
           //  Sellers.findById(())
@@ -320,7 +315,7 @@ routes.use("/delete-data/:productID", (req, res, next) => {
             user
               .removeProducts(prob)
               .then((product) => {
-                console.log(product);
+                //  console.log(product);
                 res.redirect("/admin-products");
               })
               .catch((arr) => {
@@ -346,7 +341,6 @@ routes.use("/delete-data/:productID", (req, res, next) => {
 routes.post("/add-products", (req, res, next) => {
   // console.log(req.session.user);
   const islogged = req.session.islogged;
-  //products.push({ title: req.body.title });
   const title = req.body.title;
   const price = req.body.price;
   const desc = req.body.desc;
@@ -384,11 +378,11 @@ routes.post("/add-products", (req, res, next) => {
     });
   }
   const id = product._id;
-  console.log(id);
+  //console.log(id);
   product
     .save()
     .then((result) => {
-      console.log(result);
+      // console.log(result);
     })
     .catch((err) => {
       console.log(err);
@@ -406,8 +400,8 @@ routes.post("/add-products", (req, res, next) => {
   product
     .save()
     .then((product) => {
-      console.log(product);
-      console.log(req.user);
+      //console.log(product);
+      //console.log(req.user);
       Sellers.findById(req.session.user._id).then((user) => {
         return user.addProducts(product);
       });

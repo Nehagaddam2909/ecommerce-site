@@ -15,10 +15,13 @@ const electronics = require("../models1/electronics");
 //addig user login page
 routes.get("/login", (req, res, next) => {
   const islogged = req.session.islogged;
+  const isSeller = req.session.isSeller;
   res.render("login", {
     docTitle: "login",
     path: "/login",
     islogged: islogged,
+    isSeller: isSeller,
+    username: req.session.username,
     errormessage: req.flash("errormessage")[0],
     informmessage: req.flash("informmessage")[0],
   });
