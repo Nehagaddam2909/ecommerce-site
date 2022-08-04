@@ -103,8 +103,8 @@ routes.use("/edit-data/:productID", (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.log(err);
-      // res.redirect("/admin-products");
+      //console.log(err);
+      res.redirect("/admin-products");
     });
 });
 //editing the product

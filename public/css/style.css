@@ -44,6 +44,12 @@ body {
   25% {
     content: url(/img/slideshow/slide14.jpg);
   }
+  40% {
+    content: url(/img/slideshow/slide14.jpg);
+  }
+  50% {
+    content: url(/img/slideshow/slide13.jpg);
+  }
   75% {
     content: url(/img/slideshow/slide13.jpg);
   }
@@ -725,6 +731,7 @@ nav .content .links {
 }
 .login-para a {
   text-decoration: none;
+  color: red;
 }
 .login-category {
   width: 50%;
@@ -891,6 +898,10 @@ main.display_product_card {
 
 .desc {
   justify-content: space-evenly;
+}
+
+.product-card:hover {
+  box-shadow: 0 0.8rem 2rem 0 rgba(0, 0, 0, 0.2);
 }
 
 .card-details {
