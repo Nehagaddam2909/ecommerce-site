@@ -21,7 +21,7 @@ app.set("view engine", "ejs");
 app.set("views", "views1");
 
 const store1 = new monogoDbStore({
-  uri: process.env.uri,
+  uri: process.env.URI,
   collection: "sessions",
 });
 // var MemoryStore = session.MemoryStore;
@@ -70,7 +70,7 @@ app.use("/", (req, res, next) => {
   });
 });
 mongoose
-  .connect(process.env.uri)
+  .connect(process.env.URI)
   .then((result) => {
     // Users.findOne().then((user) => {
     //   if (!user) {
