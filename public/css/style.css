@@ -924,9 +924,26 @@ main.display_product_card {
   transform: translate(-50%, -50%) scale(1);
   padding: 2rem;
 }
+@media (max-width: 37.5rem) {
+  .popup__content {
+    padding-top: 0.5rem;
+  }
+}
 .popup__table {
   display: grid;
   grid-template-columns: auto auto;
+}
+@media (max-width: 75rem) {
+  .popup__table {
+    display: flex;
+    padding-right: 2rem;
+  }
+}
+@media (max-width: 37.5rem) {
+  .popup__table {
+    display: block;
+    padding: 1rem;
+  }
 }
 .popup__title {
   padding-left: 2rem;
@@ -939,14 +956,27 @@ main.display_product_card {
   font-size: 2rem;
   text-justify: distribute-all-lines;
 }
+@media (max-width: 37.5rem) {
+  .popup__text {
+    font-size: 2.5rem;
+    justify-content: space-evenly;
+    padding-top: 0;
+  }
+}
 .popup__image {
   height: 25rem;
   width: 25rem;
-  image-rendering: optimizeQuality;
+  object-fit: fill;
+}
+@media (max-width: 37.5rem) {
+  .popup__image {
+    justify-content: center;
+  }
 }
 .popup__close {
   float: right;
   padding: 1rem;
+  transition: all 0.4s;
 }
 
 .card-details {

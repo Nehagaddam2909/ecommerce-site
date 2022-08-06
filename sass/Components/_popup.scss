@@ -7,9 +7,7 @@
   box-shadow: 0 0.3rem 0.6rem 0.3rem rgba(0, 0, 0, 0.2);
   background-color: rgba($color-black, 0.8);
   transition: all 0.3s ease-in-out;
-  //transform: scale(1);
-  //
-  //font-size: 4rem;
+
   &__content {
     background-color: #fff;
     color: $color-grey-dark-3;
@@ -19,11 +17,23 @@
     position: absolute;
     transform: translate(-50%, -50%) scale(1);
     padding: 2rem;
+
+    @include respond("phone") {
+      padding-top: 0.5rem;
+    }
   }
 
   &__table {
     display: grid;
     grid-template-columns: auto auto;
+    @include respond("tab-land") {
+      display: flex;
+      padding-right: 2rem;
+    }
+    @include respond("phone") {
+      display: block;
+      padding: 1rem;
+    }
     //padding-left: 2rem;
   }
   &__title {
@@ -37,17 +47,32 @@
 
     font-size: 2rem;
     text-justify: distribute-all-lines;
+
+    @include respond("phone") {
+      font-size: 2.5rem;
+      justify-content: space-evenly;
+      padding-top: 0;
+      // padding-left: 0;
+    }
   }
   &__image {
     height: 25rem;
     width: 25rem;
-    image-rendering: optimizeQuality;
+    object-fit: fill;
+
+    //image-rendering: optimizeQuality;
+
+    @include respond("phone") {
+      justify-content: center;
+    }
     //column-count: 1;
   }
 
   &__close {
     float: right;
     padding: 1rem;
+    transition: all 0.4s;
+
     //transform: scale(-1);
   }
 }
