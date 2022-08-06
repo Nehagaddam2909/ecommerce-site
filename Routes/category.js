@@ -4,6 +4,7 @@ const fashion = require("../models1/fashion");
 const electorincs = require("../models1/electronics");
 const homeApp = require("../models1/homeApp");
 const electronics = require("../models1/electronics");
+const products = require("../models1/products");
 const route = express.Router();
 route.get("/beauty", (req, res, next) => {
   const islogged = req.session.islogged;
@@ -11,14 +12,15 @@ route.get("/beauty", (req, res, next) => {
   if (islogged) {
     mn = req.session.user.username;
   }
-  beauty
-    .find()
+  products
+    .find({ category: "beauty" })
     .then((products) => {
       //if (!products.length) {
       res.render("fashion", {
         probs: products,
         docTitle: "beauty",
         path: "/beauty",
+        ispopup: false,
         islogged: islogged,
         isSeller: req.session.isSeller,
         username: mn,
@@ -37,13 +39,16 @@ route.use("/fashion", (req, res, next) => {
   if (islogged) {
     mn = req.session.user.username;
   }
-  fashion
-    .find()
+  products
+    .find({ category: "fashion" })
     .then((products) => {
+    //  console.log(products);
+
       res.render("fashion", {
         probs: products,
         docTitle: "Shop",
         path: "/",
+        ispopup: false,
         islogged: islogged,
         isSeller: req.session.isSeller,
         username: mn,
@@ -62,13 +67,14 @@ route.use("/electronics", (req, res, next) => {
   if (islogged) {
     mn = req.session.user.username;
   }
-  electronics
-    .find()
+  products
+    .find({ category: "electronics" })
     .then((products) => {
       res.render("fashion", {
         probs: products,
         docTitle: "Shop",
         path: "/",
+        ispopup: false,
         islogged: islogged,
         isSeller: req.session.isSeller,
 
@@ -87,13 +93,14 @@ route.use("/homeApp", (req, res, next) => {
   if (islogged) {
     mn = req.session.user.username;
   }
-  homeApp
-    .find()
+  products
+    .find({ category: "homeApp" })
     .then((products) => {
       res.render("fashion", {
         probs: products,
         docTitle: "Shop",
         path: "/",
+        ispopup: false,
         islogged: islogged,
         isSeller: req.session.isSeller,
 

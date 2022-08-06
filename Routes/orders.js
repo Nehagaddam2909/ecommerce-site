@@ -10,12 +10,19 @@ routes.use("/orders", (req, res, next) => {
     req.flash("loginpath", "/orders");
     res.redirect("/login");
   } else {
+    let list = {};
     req.user
       .populate("cart.items.productId")
       .then((user) => {
         const getProduct = user.cart.items.map((i) => {
           return { product: { ...i.productId._doc }, quantity: i.quantity };
         });
+        list = { ...user.cart.items };
+        //console.log("#");
+        list = user.cart.items.map((i) => {
+          return i.productId._id;
+        });
+        console.log(list);
         if (getProduct.length > 0) {
           const orders = new Orders({
             Products: getProduct,
@@ -38,6 +45,9 @@ routes.use("/orders", (req, res, next) => {
             user.clearCart();
           })
           .then(() => {
+            Proucts.find({_id:{$in: list}}).then((result)=>{
+              Products.updateCount(result);
+            })
             res.redirect("/get-order");
           })
           .catch((err) => {
@@ -56,7 +66,7 @@ routes.use("/get-order", (req, res, next) => {
   } else {
     //console.log(req.session.user);
     Orders.find({ "user.userId": req.session.user._id }).then((result) => {
-      console.log(result);
+      //  console.log(result);
 
       res.render("order", {
         docTitle: "order",

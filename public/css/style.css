@@ -639,13 +639,13 @@ nav .content .links {
   border-radius: 50%;
 }
 
-.link i {
-  font-size: 1.1rem;
+.link {
+  font-size: 2.1rem;
   width: 1rem;
   transition: color 0.4s ease;
 }
 
-.link:hover i {
+.link:hover {
   color: aqua;
 }
 
@@ -901,7 +901,52 @@ main.display_product_card {
 }
 
 .product-card:hover {
-  box-shadow: 0 0.8rem 2rem 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2rem 2rem 0 rgba(0, 0, 0, 0.2);
+}
+
+.popup {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  box-shadow: 0 0.3rem 0.6rem 0.3rem rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease-in-out;
+}
+.popup__content {
+  background-color: #fff;
+  color: #333;
+  font-size: 3rem;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%) scale(1);
+  padding: 2rem;
+}
+.popup__table {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.popup__title {
+  padding-left: 2rem;
+  font-size: 3.2rem;
+  text-transform: uppercase;
+  background-image: linear-gradient(25deg, #a443e0, #fc0356);
+}
+.popup__text {
+  padding-left: 2rem;
+  font-size: 2rem;
+  text-justify: distribute-all-lines;
+}
+.popup__image {
+  height: 25rem;
+  width: 25rem;
+  image-rendering: optimizeQuality;
+}
+.popup__close {
+  float: right;
+  padding: 1rem;
 }
 
 .card-details {

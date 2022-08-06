@@ -23,6 +23,11 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
+  Count: {
+    type: Number,
+    default: 0,
+  },
 });
+
 
 module.exports = mongoose.model("Products", productSchema);

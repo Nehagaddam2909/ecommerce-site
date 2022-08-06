@@ -23,9 +23,9 @@
           <p><%= product.description%></p>
         </div>
         <div class="product-card-btn">
-          <a href="/details/<%= product._id%>"
-            ><button class="product-card-submit">Details</button></a
-          >
+          <a href="/details/<%= product._id%>/<%=product.category%>">
+            <button class="product-card-submit">Details</button>
+          </a>
           <a href="/add-to-cart/<%= product._id%>"
             ><button class="product-card-submit">Add to cart</button></a
           >
@@ -33,8 +33,25 @@
       </div>
       <% } %>
     </main>
-    <% } %>
-    <br /><br />
+    <% } %> <%if (ispopup){%>
+    <div class="popup">
+      <div class="popup__content">
+        <a href="/<%=pro.category%>" class="popup__close">&times;</a>
+
+        <div class="popup__table">
+          <img class="popup__image" src="<%= pro.imageUrl%>" />
+          <div class="popup__text">
+            <div class="heading popup__title"><%= pro.title%></div>
+            <%=pro.description%>
+            <p>Price: <%=pro.price%> Rs</p>
+            <a href="/add-to-cart/<%= pro._id%>"
+              ><button class="product-card-submit">Add to cart</button></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }%> <br /><br />
     <%- include('layouts/includes/footer.ejs')%>
   </body>
 </html>
