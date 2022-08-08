@@ -17,12 +17,7 @@ routes.use("/orders", (req, res, next) => {
         const getProduct = user.cart.items.map((i) => {
           return { product: { ...i.productId._doc }, quantity: i.quantity };
         });
-        list = { ...user.cart.items };
-        //console.log("#");
-        list = user.cart.items.map((i) => {
-          return i.productId._id;
-        });
-        console.log(list);
+
         if (getProduct.length > 0) {
           const orders = new Orders({
             Products: getProduct,
@@ -35,21 +30,14 @@ routes.use("/orders", (req, res, next) => {
           });
           return orders.save();
         }
-
-        //console.log(orders);
-        // this.cart.items = [];
       })
       .then((result) => {
         Users.findById(req.session.user._id)
           .then((user) => {
             user.clearCart();
-          })
-          .then(() => {
-            Proucts.find({_id:{$in: list}}).then((result)=>{
-              Products.updateCount(result);
-            })
             res.redirect("/get-order");
           })
+
           .catch((err) => {
             console.log(err);
           });

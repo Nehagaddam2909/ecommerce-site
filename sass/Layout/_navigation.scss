@@ -20,7 +20,7 @@
 }
 //navigation start here
 .wrapper {
-  margin-top: 1rem;
+  // margin-top: 1rem;
   background-image: linear-gradient(to right, $color3, $color2);
   width: 100%;
 }
@@ -170,6 +170,15 @@ nav .content .links {
   }
 }
 @media screen and (max-width: 900px) {
+  .wrapper {
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 10;
+  }
+  .cat-nav {
+    margin-top: 7rem;
+  }
   .wrapper .menu-icon {
     display: block;
   }
@@ -182,7 +191,7 @@ nav .content .links {
     background-image: linear-gradient(to right, $color3, $color2);
     height: 100%;
     width: 100%;
-    top: 68px;
+    top: 58px;
     left: -100%;
     z-index: 1;
     margin-left: 0;
