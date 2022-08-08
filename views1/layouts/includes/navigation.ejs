@@ -9,6 +9,7 @@
         <li><a href="/">Home</a></li>
         <li><a href="#about">About</a></li>
         <li>
+          <!-- Category -->
           <a href="#" class="desktop-link">Category</a>
           <input type="checkbox" id="show-features" />
           <label for="show-features">Features</label>
@@ -23,11 +24,12 @@
         <li><a href="#">Feedback</a></li>
 
         <% if(islogged) { %>
-        <li class="f">
+        <li>
           <% if(username) {%>
           <a href="#"><%= username %></a>
           <% } %>
-
+          <input type="checkbox" id="show-products" />
+          <label for="show-products">More</label>
           <ul>
             <% if(!isSeller){%>
             <li><a href="/cart">My Cart</a></li>
