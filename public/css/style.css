@@ -351,6 +351,7 @@ nav .content .links {
     overflow: hidden;
   }
   .content .links #show-features:checked ~ ul,
+.content .links #show-products:checked ~ ul,
 .content .links #show-services:checked ~ ul,
 .content .links #show-items:checked ~ ul {
     max-height: 100vh;
@@ -382,10 +383,6 @@ nav .content .links {
     padding-right: 30px;
   }
 }
-.f {
-  float: inline-end;
-}
-
 .slideshow {
   position: relative;
 }
